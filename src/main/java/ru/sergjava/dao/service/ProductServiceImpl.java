@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    ProductRepository repository;
+    private ProductRepository repository;
 
     public ProductServiceImpl(ProductRepository repository) {
         this.repository = repository;

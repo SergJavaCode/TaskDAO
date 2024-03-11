@@ -12,8 +12,12 @@ import java.sql.SQLException;
 
 @SpringBootApplication
 public class DaoApplication {
-    @Autowired
+
     private DataSource dataSource;
+
+    public DaoApplication(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     public static void main(String[] args) throws SQLException {
         SpringApplication.run(DaoApplication.class, args);

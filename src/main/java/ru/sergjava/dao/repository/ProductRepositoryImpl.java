@@ -17,27 +17,24 @@ import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
-    @Autowired
+
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private String sqlScript;
 
-    public String read(String scriptFileName) {
-        try (InputStream is = new ClassPathResource(scriptFileName).getInputStream();
+    public ProductRepositoryImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        try (InputStream is = new ClassPathResource("getProductForName.sql").getInputStream();
              BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is))) {
-            return bufferedReader.lines().collect(Collectors.joining("\n"));
+            sqlScript = bufferedReader.lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public List<String> getProductForName(String name) {
-        sqlScript = read("getProductForName.sql");
         Map<String, Object> param = new HashMap<>();
         param.put("name", name);
-
-        List<String> products = namedParameterJdbcTemplate.query(sqlScript, param, (resultSet, rowNum) -> {
-            return resultSet.getString("product_name");
-        });
+        List<String> products = namedParameterJdbcTemplate.queryForList(sqlScript, param, String.class);
         return products;
     }
 
