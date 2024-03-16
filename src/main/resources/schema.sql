@@ -12,7 +12,7 @@ CREATE TABLE netology_task.orders
 (
     id				SERIAL			NOT NULL	PRIMARY KEY,
     date			DATE			NOT NULL,
-    customer_id 	INTEGER 		NOT NULL,
+    customer_id 	INTEGER 	 REFERENCES customers NOT NULL,
     product_name	VARCHAR(200)	NOT NULL,
     amount			INTEGER			NOT NULL
 );
