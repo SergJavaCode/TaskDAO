@@ -29,8 +29,8 @@ public class Customers {
     @Column(nullable = false)
     private Integer age;
 
-    @Column(unique = true)
-    private Long phone_number;
+    @Column(name = "phone_number", unique = true)
+    private Long phoneNumber;
 }
 
 
