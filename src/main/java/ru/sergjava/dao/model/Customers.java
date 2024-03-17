@@ -1,21 +1,34 @@
 package ru.sergjava.dao.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
-@Data
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Table(schema = "netology_task")
 public class Customers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, length = 30)
+    @EqualsAndHashCode.Include
     private String name;
+
     @Column(nullable = false, length = 30)
+    @EqualsAndHashCode.Include
     private String surname;
+
+    @EqualsAndHashCode.Include
     @Column(nullable = false)
     private Integer age;
+
     @Column(unique = true)
     private Long phone_number;
 }
